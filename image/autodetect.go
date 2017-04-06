@@ -22,6 +22,7 @@ import (
 	"os"
 
 	"github.com/opencontainers/image-spec/schema"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 )
 
@@ -94,11 +95,11 @@ func Autodetect(path string) (string, error) {
 	}
 
 	switch {
-	case header.MediaType == string(schema.ValidatorMediaTypeManifest):
+	case header.MediaType == v1.MediaTypeImageManifest:
 		return TypeManifest, nil
 
-	case header.MediaType == string(schema.ValidatorMediaTypeImageIndex):
-		return TypeImageIndex, nil
+	//case header.MediaType == v1.MediaTypeImageIndex:
+	//	return TypeImageIndex, nil
 
 	case header.MediaType == "" && header.SchemaVersion == 0 && header.Config != nil:
 		// config files don't have mediaType/schemaVersion header

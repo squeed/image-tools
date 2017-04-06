@@ -16,7 +16,6 @@ package image
 
 import (
 	"archive/tar"
-	"bytes"
 	"compress/gzip"
 	"encoding/json"
 	"fmt"
@@ -27,7 +26,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/opencontainers/image-spec/schema"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/pkg/errors"
 )
@@ -51,9 +49,9 @@ func findManifest(w walker, d *descriptor) (*manifest, error) {
 			return errors.Wrapf(err, "%s: error reading manifest", path)
 		}
 
-		if err := schema.ValidatorMediaTypeManifest.Validate(bytes.NewReader(buf)); err != nil {
+		/*if err := schema.ValidatorMediaTypeManifest.Validate(bytes.NewReader(buf)); err != nil {
 			return errors.Wrapf(err, "%s: manifest validation failed", path)
-		}
+		}*/
 
 		if err := json.Unmarshal(buf, &m); err != nil {
 			return err

@@ -15,7 +15,6 @@
 package image
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -25,7 +24,6 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/opencontainers/image-spec/schema"
 	"github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/opencontainers/runtime-spec/specs-go"
 	"github.com/pkg/errors"
@@ -46,9 +44,9 @@ func findConfig(w walker, d *descriptor) (*config, error) {
 			return errors.Wrapf(err, "%s: error reading config", path)
 		}
 
-		if err := schema.ValidatorMediaTypeImageConfig.Validate(bytes.NewReader(buf)); err != nil {
-			return errors.Wrapf(err, "%s: config validation failed", path)
-		}
+		//if err := schema.ValidatorMediaTypeImageConfig.Validate(bytes.NewReader(buf)); err != nil {
+		//	return errors.Wrapf(err, "%s: config validation failed", path)
+		//}
 
 		if err := json.Unmarshal(buf, &c); err != nil {
 			return err
